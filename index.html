@@ -79,12 +79,15 @@
   <body>
 
     <div id="quiz-container">
-		<H2>Python Practic Quiz</H2>
+	  <H2>Python Practic Quiz</H2>
+	  <p>The questions will be randomly selected, the total no of questions for this practic is 25.</p>
+	  <p id="result"></p>
       <h3 id="question"></h3>
       <div id="options"></div>
 	  <br/>
       <button id="submit-btn">Submit</button>
-      <p id="result"></p>
+      <p id="final"></p>
+	  <p>In case of any technical issues whatsapp text me on 9445559904</p>
     </div>
 
     <script>
@@ -156,7 +159,7 @@
   },
   {
     "question": "What is the output of type(10) in Python?",
-    "options": ["int", "<class 'int'>", "integer", "type of integer"],
+    "options": ["int", "&lt;class 'int'&gt;", "integer", "type of integer"],
     "correctAnswer": "<class 'int'>"
   },
   {
@@ -206,7 +209,7 @@
   },
   {
     "question": "Which of the following is the correct way to start a Python script with a comment?",
-    "options": ["# This is a comment", "/* This is a comment */", "// This is a comment", "<! This is a comment >"],
+    "options": ["# This is a comment", "/* This is a comment */", "// This is a comment", "&lt;! This is a comment &gt;"],
     "correctAnswer": "# This is a comment"
   },
   {
@@ -890,19 +893,34 @@
     "correctAnswer": "The difference between the observed value and the predicted value"
   }
 ];
+</script>
+<script>
 
+	  // Function to shuffle the quiz questions
+	  function shuffleQuestions(array) {
+		for (let i = array.length-1; i > 0; i--) {
+		  const j = Math.floor(Math.random() * (i + 1));
+		  [array[i], array[j]] = [array[j], array[i]];
+		}
+		return array;
+	  }
+  
       let currentQuestionIndex = 0;
       const questionElement = document.getElementById("question");
       const optionsElement = document.getElementById("options");
       const resultElement = document.getElementById("result");
       const submitBtn = document.getElementById("submit-btn");
+	  const finalElement = document.getElementById("final");
 	  currentAnsCount = 0;
 	  WrongAnsCount = 0;
 
+	  // Shuffle the quiz questions
+	  shuffleQuestions(quizData);
+  
       function loadQuestion() {
         resultElement.textContent = "";
         const currentQuestion = quizData[currentQuestionIndex];
-        questionElement.textContent = currentQuestion.question;
+        questionElement.textContent = "(Q: " + (currentQuestionIndex+1).toString() + "/25) " + currentQuestion.question;
         optionsElement.innerHTML = "";
 
         currentQuestion.options.forEach((option, index) => {
@@ -938,12 +956,14 @@
         }
 
         currentQuestionIndex++;
-        if (currentQuestionIndex < quizData.length) {
+        if (currentQuestionIndex < 24) {
           submitBtn.textContent = "Next";
         } else {
           submitBtn.textContent = "Finish";
-		  resultElement.style.color = "Orange";
-		  resultElement.textContent = "Total questions: " + (WrongAnsCount+currentAnsCount).toString() + " Wrong Answer: " + WrongAnsCount.toString() + " Correct Answer: " + currentAnsCount.toString();
+		  resultElement.style.color = "red";
+		  resultElement.textContent = `Wrong! The correct answer is ${currentQuestion.correctAnswer}.`;
+		  finalElement.style.color = "Orange";
+		  finalElement.textContent = "Total questions: " + (WrongAnsCount+currentAnsCount).toString() + " Wrong Answer: " + WrongAnsCount.toString() + " Correct Answer: " + currentAnsCount.toString();
         }
       }
 
