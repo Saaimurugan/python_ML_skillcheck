@@ -5,21 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz</title>
 	<style>
+		div#options div {
+		list-style-position: outside;
+		margin-left: 3em;
+		}
 		
-	div#options div {
-	list-style-position: outside;
-	margin-left: 2em;
-	}
-	
-	div#options input {
-	list-style-position: outside;
-	margin-left: -2em;
-	}
-	
-	div label {
-		text-indent: -1.5em; /* Should match padding-left */
-		padding-left: -1.5em; /* Should match padding-left */
-	}
+		div#options input {
+		list-style-position: outside;
+		margin-left: -29px;
+		}
 		    
         body {
             font-family: Arial, sans-serif;
@@ -96,7 +90,7 @@
 
     <div id="quiz-container">
 	  <H2>Python Practic Quiz</H2>
-	  <p>The questions will be randomly selected, the total no of questions for this practic is 25.</p>
+	  <p>Out of a total of 125 questions, 25 will be randomly selected.</p>
 	  <p id="result"></p>
       <h3 id="question"></h3>
       <div id="options"></div>
